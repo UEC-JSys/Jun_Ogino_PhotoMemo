@@ -3,6 +3,7 @@ package com.example.photomemo
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -45,8 +46,9 @@ class AddPhotoActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == pickPhotoRequestCode && resultCode == Activity.RESULT_OK) {
             data?.data?.let {
-                if (android.os.Build.VERSION.SDK_INT >=
-                    android.os.Build.VERSION_CODES.R)
+                if (Build.VERSION.SDK_INT >=
+                    Build.VERSION_CODES.R)
+                    // ここ,Rが存在していないのでエラーになってしまっている sdkの問題？
                     contentResolver.takePersistableUriPermission(
                         it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 val imageView = findViewById<ImageView>(R.id.addPhotoMemoImageView)
