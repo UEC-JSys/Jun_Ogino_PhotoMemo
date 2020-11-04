@@ -1,0 +1,2 @@
+rootProject.name='PhotoMemo'
+include ':app'
