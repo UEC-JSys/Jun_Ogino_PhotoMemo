@@ -1,12 +1,18 @@
 package com.example.photomemo
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.OnConflictStrategy
+import androidx.lifecycle.viewModelScope
+import androidx.room.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Entity(tableName = "photo_table")
-data class Photo(@PrimaryKey @ColumnInfo(name = "uri") val uri: String, @ColumnInfo(name = "memo") val memo: String) {
-
+data class Photo(
+    @PrimaryKey @ColumnInfo(name = "uri") val uri: String,
+    @ColumnInfo(name = "memo") val memo: String
+) {
 }
 
 @Dao
@@ -18,9 +24,10 @@ interface PhotoDao {
     suspend fun insert(photo: Photo)
 }
 
-@Database(entities = arrayOf(Photo::class), version = 1, exportSchema = false)
+@Database(entities = [Photo::class], version = 1, exportSchema = false)
 public abstract class PhotoRoomDatabase : RoomDatabase() {
     abstract fun photoDao(): PhotoDao
+
     companion object {
         @Volatile
         private var INSTANCE: PhotoRoomDatabase? = null
@@ -44,7 +51,8 @@ public abstract class PhotoRoomDatabase : RoomDatabase() {
 }
 
 class PhotoRepository(private val photoDao: PhotoDao) {
-    val allPhotos: LiveData<List<Photo>> = photoDao.getPhots()
+    val allPhotos: LiveData<List<Photo>> = photoDao.getPhotos()
+
     suspend fun insert(photo: Photo) {
         photoDao.insert(photo)
     }
