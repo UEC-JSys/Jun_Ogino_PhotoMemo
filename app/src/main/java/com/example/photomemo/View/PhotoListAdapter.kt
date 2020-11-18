@@ -1,4 +1,4 @@
-package com.example.photomemo
+package com.example.photomemo.View
 
 import android.content.Context
 import android.net.Uri
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.photomemo.Model.Photo
+import com.example.photomemo.R
 
 class PhotoListAdapter internal constructor(context: Context)
     : RecyclerView.Adapter<PhotoListAdapter.PhotoViewHolder>() {

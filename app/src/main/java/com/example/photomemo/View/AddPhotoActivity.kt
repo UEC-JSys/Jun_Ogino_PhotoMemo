@@ -1,10 +1,7 @@
-package com.example.photomemo
+package com.example.photomemo.View
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,6 +9,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
+import com.example.photomemo.ViewModel.AddPhotoViewModel
+import com.example.photomemo.Model.Photo
+import com.example.photomemo.R
 
 class AddPhotoActivity : AppCompatActivity() {
     private val pickPhotoRequestCode = 2
@@ -37,7 +37,10 @@ class AddPhotoActivity : AppCompatActivity() {
             if (imageUri == null || TextUtils.isEmpty(editText.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                val photo = Photo(imageUri.toString(), editText.text.toString())
+                val photo = Photo(
+                    imageUri.toString(),
+                    editText.text.toString()
+                )
                 val viewModel = ViewModelProvider(this).get(AddPhotoViewModel::class.java)
                 viewModel.insert(photo)
                 setResult(Activity.RESULT_OK, replyIntent)
