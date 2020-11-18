@@ -15,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private val addActivityRequestCode = 1
+    private val requestExternalStorage = 2
     private lateinit var viewModel: PhotoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(PhotoViewModel::class.java)
         viewModel.allPhotos.observe(this, Observer { photos ->
-            photos?.let { adapter.setPhotos(it) }
+            photos?.let { adapter.setPhotos(viewModel.getAllThumbs(it)) }
         })
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)

@@ -1,6 +1,7 @@
 package com.example.photomemo.ViewModel
 
 import android.app.Application
+import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.photomemo.Model.Photo
@@ -16,5 +17,11 @@ class PhotoViewModel(application: Application) : AndroidViewModel(application) {
         ).photoDao()
         repository = PhotoRepository(photoDao)
         allPhotos = repository.allPhotos
+    }
+
+    fun getAllThumbs(photos: List<Photo>) : List<Pair<Photo, Bitmap?>> {
+        return repository.getAllThumbnails(
+            photos, getApplication<Application>().contentResolver
+        ).toList()
     }
 }
