@@ -3,6 +3,7 @@ package com.example.photomemo
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 
 class AddPhotoActivity : AppCompatActivity() {
     private val pickPhotoRequestCode = 2
-    private var imageUri = null
     private val viewModel = ViewModelProvider(this).get(AddPhotoViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +34,7 @@ class AddPhotoActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
             val editText = findViewById<EditText>(R.id.addPhotoMemoEditText)
             val replyIntent = Intent()
+            val imageUri = findViewById<ImageView>(R.id.addPhotoMemoImageView)
             if (imageUri == null || TextUtils.isEmpty(editText.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
@@ -56,8 +57,6 @@ class AddPhotoActivity : AppCompatActivity() {
 //                        it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 val imageView = findViewById<ImageView>(R.id.addPhotoMemoImageView)
                 imageView.setImageURI(it)
-                // ここでエラー
-                imageUri = it
             }
         }
     }
