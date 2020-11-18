@@ -10,9 +10,12 @@ import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.lifecycle.ViewModelProvider
 
 class AddPhotoActivity : AppCompatActivity() {
     private val pickPhotoRequestCode = 2
+    private var imageUri = null
+    private val viewModel = ViewModelProvider(this).get(AddPhotoViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,13 +49,14 @@ class AddPhotoActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == pickPhotoRequestCode && resultCode == Activity.RESULT_OK) {
             data?.data?.let {
-                if (Build.VERSION.SDK_INT >=
-                    Build.VERSION_CODES.R)
+//                if (Build.VERSION.SDK_INT >=
+//                    Build.VERSION_CODES.)
                     // ここ,Rが存在していないのでエラーになってしまっている sdkの問題？
-                    contentResolver.takePersistableUriPermission(
-                        it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//                    contentResolver.takePersistableUriPermission(
+//                        it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 val imageView = findViewById<ImageView>(R.id.addPhotoMemoImageView)
                 imageView.setImageURI(it)
+                // ここでエラー
                 imageUri = it
             }
         }
