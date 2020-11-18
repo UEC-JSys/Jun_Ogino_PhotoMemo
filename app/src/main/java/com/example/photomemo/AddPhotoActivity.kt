@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 
 class AddPhotoActivity : AppCompatActivity() {
     private val pickPhotoRequestCode = 2
-    private val viewModel = ViewModelProvider(this).get(AddPhotoViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +38,7 @@ class AddPhotoActivity : AppCompatActivity() {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
                 val photo = Photo(imageUri.toString(), editText.text.toString())
+                val viewModel = ViewModelProvider(this).get(AddPhotoViewModel::class.java)
                 viewModel.insert(photo)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
@@ -52,7 +52,6 @@ class AddPhotoActivity : AppCompatActivity() {
             data?.data?.let {
 //                if (Build.VERSION.SDK_INT >=
 //                    Build.VERSION_CODES.)
-                    // ここ,Rが存在していないのでエラーになってしまっている sdkの問題？
 //                    contentResolver.takePersistableUriPermission(
 //                        it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 val imageView = findViewById<ImageView>(R.id.addPhotoMemoImageView)
