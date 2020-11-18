@@ -3,6 +3,7 @@
     package="com.example.photomemo">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.AddPhotoActivity"></activity>
+        <activity android:name=".View.PhotoDetailActivity"></activity>
+        <activity android:name=".View.AddPhotoActivity" />
         <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

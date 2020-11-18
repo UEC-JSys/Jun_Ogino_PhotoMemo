@@ -12,14 +12,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.photomemo.Model.Photo
 import com.example.photomemo.R
 
-class PhotoListAdapter internal constructor(context: Context)
+class PhotoListAdapter internal constructor(context: Context, listener: Listener)
     : RecyclerView.Adapter<PhotoListAdapter.PhotoViewHolder>() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var photos = emptyList<Pair<Photo, Bitmap?>>()
+    private val clickListener: Listener = listener
 
     inner class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val photoItemView: ImageView = itemView.findViewById(R.id.imageView)
         val memoItemView: TextView = itemView.findViewById(R.id.textView)
+    }
+
+    interface Listener {
+        fun onItemClicked(index: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
@@ -34,6 +39,9 @@ class PhotoListAdapter internal constructor(context: Context)
             holder.photoItemView.setImageBitmap(current.second)
         } else {
             holder.photoItemView.setImageURI(Uri.parse(current.first.uri))
+        }
+        holder.itemView.setOnClickListener {
+            clickListener.onItemClicked(holder.adapterPosition)
         }
     }
 

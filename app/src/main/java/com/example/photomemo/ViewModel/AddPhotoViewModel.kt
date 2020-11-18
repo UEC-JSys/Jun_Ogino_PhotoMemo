@@ -20,4 +20,9 @@ class AddPhotoViewModel(application: Application) : AndroidViewModel(application
     fun insert(photo: Photo) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(photo)
     }
+
+    // これはどこに置く？
+    fun delete(photo: Photo) = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(photo)
+    }
 }

@@ -2,6 +2,7 @@ package com.example.photomemo.View
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -15,6 +16,7 @@ import com.example.photomemo.R
 
 class AddPhotoActivity : AppCompatActivity() {
     private val pickPhotoRequestCode = 2
+    private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,6 @@ class AddPhotoActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
             val editText = findViewById<EditText>(R.id.addPhotoMemoEditText)
             val replyIntent = Intent()
-            val imageUri = findViewById<ImageView>(R.id.addPhotoMemoImageView)
             if (imageUri == null || TextUtils.isEmpty(editText.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
@@ -59,6 +60,7 @@ class AddPhotoActivity : AppCompatActivity() {
 //                        it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 val imageView = findViewById<ImageView>(R.id.addPhotoMemoImageView)
                 imageView.setImageURI(it)
+                imageUri = it
             }
         }
     }
